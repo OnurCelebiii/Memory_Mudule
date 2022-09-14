@@ -20,7 +20,7 @@ end top_memory_module;
 
 architecture Behavioral of top_memory_module is
 ----------------------------------------signal decleration--------------------------------------------------
-signal message                                      :               std_logic_vector (5 downto 0)          ;
+
 signal constant_memory_module_output                :               std_logic_vector (15 downto 0)         ;
 signal temp_meemory_module_output                   :               std_logic_vector (15 downto 0)         ;
 signal o_memory_message                             :               std_logic_vector (5 downto 0)          ;
