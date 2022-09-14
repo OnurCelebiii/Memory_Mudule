@@ -20,7 +20,7 @@ end memory_recovery;
 
 architecture Behavioral of memory_recovery is
 
-signal recovery_address             :           std_logic_vector (14 downto 0)        ;
+signal recovery_address             :           std_logic_vector (14 downto 0)   := "000000000000000"     ;
 signal recovery_enable              :           std_logic                             ;
 signal recovery_wea                 :           std_logic                             ;
 signal data_out                     :           std_logic_vector (15 downto 0)        ;
@@ -62,35 +62,24 @@ if rising_edge(i_clk_recovery) then
     
         recovery_enable         <=          '0'          ;
         recovery_wea            <=          '0'          ;
------------------------address data writing----------------------------
-    if recovery_enable = '1' then 
-        if recovery_wea = '1' then 
-        
+----------------address data writing and address clear command--------------------
+    if recovery_enable = '1' and recovery_wea = '1' then 
+    
             recovery_address   <= std_logic_vector(unsigned(recovery_address) + 1 );
             
             if recovery_address = "111111111111111" then
             
                 recovery_address <= "111111111111111";
-            
-            end if;
-        end if;
-    end if;
------------------------------------------------------------------------
-
-
----------------recovery address reset----------------------------------        
-        if recovery_address = "111111111111111" then 
         
-            if recovery_address_reset = '1' then 
+                    if recovery_address_reset = '1' and recovery_address = "111111111111111" then 
             
-                recovery_address <= "000000000000000" ;
+                        recovery_address <= "000000000000000" ;
             
+                    end if;
             end if;
         end if;
------------------------------------------------------------------------
     end if;
-
-
+-----------------------------------------------------------------------
 
 end if;
 
